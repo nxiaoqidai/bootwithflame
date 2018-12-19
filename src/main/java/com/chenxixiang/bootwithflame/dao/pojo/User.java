@@ -2,10 +2,14 @@ package com.chenxixiang.bootwithflame.dao.pojo;
 
 import java.util.Date;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class User {
 	private String id;
 	private String name;
-	private Date dateTime;
+
+	@ApiModelProperty(hidden = true)
+	private Date createTime;
 
 	public String getId() {
 		return id;
@@ -23,12 +27,12 @@ public class User {
 		this.name = name;
 	}
 
-	public Date getDateTime() {
-		return dateTime;
+	public Date getCreateTime() {
+		return createTime;
 	}
 
-	public void setDateTime(Date dateTime) {
-		this.dateTime = dateTime;
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 
 }

@@ -20,4 +20,41 @@
 		from user	
 	</select>
 	
+	<select id="select" resultMap="BaseResultMap" parameterMap="parameterMap">
+		select 
+			<include refid="baseCollumnList"/>
+		from user 
+			<where>
+				<trim suffix="" prefixOverrides="AND">
+					<if test="id !=null">
+						AND id = #{id, jdbcType=CHAR}
+					</if>
+					<if test="name !=null">
+						AND name = #{name, jdbcType=CHAR}
+					</if>
+				</trim>
+			</where>
+	</select>
+	
+	<insert id="insert" parameterMap="parameterMap">
+		insert into user 
+			(id,name,create_time)
+		values
+			(#{id, jdbcType=CHAR},#{name, jdbcType=CHAR},#{createTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<delete id="delete" parameterMap="parameterMap">
+		delete from user
+			<where>
+				<trim suffix="" prefixOverrides="AND">
+					<if test="id !=null">
+						AND id = #{id, jdbcType=CHAR}
+					</if>
+					<if test="name !=null">
+						AND name = #{name, jdbcType=CHAR}
+					</if>
+				</trim>
+			</where>
+		limit 1	
+	</delete>
 </mapper>

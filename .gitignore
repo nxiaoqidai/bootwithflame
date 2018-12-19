@@ -27,3 +27,11 @@
 /mvnw.cmd
 
 *.md
+
+*.log
+
+src/main/.DS_Store
+
+src/.DS_Store
+
+.DS_Store
