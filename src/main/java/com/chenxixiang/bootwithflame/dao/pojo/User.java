@@ -5,7 +5,9 @@ import java.util.Date;
 import io.swagger.annotations.ApiModelProperty;
 
 public class User {
+	@ApiModelProperty(hidden = true)
 	private String id;
+
 	private String name;
 
 	@ApiModelProperty(hidden = true)
