@@ -14,9 +14,9 @@ public class MyExceptionHandler {
 	@ResponseBody
 	public WebResult exceptionGet(Exception e) {
 
-		if (e instanceof NullParamException) {
-			NullParamException MyException = (NullParamException) e;
-			return ResultUtil.error(MyException.getParamType(), MyException.getMessage());
+		if (e instanceof MyException) {
+			MyException MyException = (MyException) e;
+			return ResultUtil.error(MyException.getCode(), MyException.getMessage());
 		}
 
 		LOGGER.error("【系统异常】{}", e);
