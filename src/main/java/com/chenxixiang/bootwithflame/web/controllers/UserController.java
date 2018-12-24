@@ -13,6 +13,7 @@ import com.chenxixiang.bootwithflame.dao.pojo.User;
 import com.chenxixiang.bootwithflame.service.interfaces.UserService;
 import com.chenxixiang.bootwithflame.web.common.CommonConstant;
 import com.chenxixiang.bootwithflame.web.common.WebResult;
+import com.chenxixiang.bootwithflame.web.common.WebResultUtil;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -32,15 +33,15 @@ public class UserController {
 
 	@ApiOperation(value = "获取所有用户信息", notes = "获取所有用户信息")
 	@RequestMapping(method = RequestMethod.GET, value = "/showAllUser")
-	public String showAllUser() {
-		return userService.showAll();
+	public WebResult<List<User>> showAllUser() {
+		return WebResultUtil.success(userService.showAll());
 	}
 
 	@ApiOperation(value = "获取用户信息", notes = "获取所有用户信息")
 	@RequestMapping(method = RequestMethod.GET, value = "/select")
-	public @ResponseBody WebResult selectUser(@ModelAttribute User user) {
+	public @ResponseBody WebResult<List<User>> selectUser(@ModelAttribute User user) {
 		List<User> results = userService.selectUser(user);
-		WebResult webResult = new WebResult();
+		WebResult<List<User>> webResult = new WebResult<List<User>>();
 		webResult.setData(results);
 		return webResult;
 	}

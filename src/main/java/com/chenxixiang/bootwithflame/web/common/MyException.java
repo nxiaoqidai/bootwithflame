@@ -2,6 +2,8 @@ package com.chenxixiang.bootwithflame.web.common;
 
 public class MyException extends RuntimeException {
 
+	private static final long serialVersionUID = 1L;
+
 	private Integer code;
 
 	public MyException(ExceptionEnum exceptionEnum) {

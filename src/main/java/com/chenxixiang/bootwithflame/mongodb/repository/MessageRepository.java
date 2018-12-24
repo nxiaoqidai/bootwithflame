@@ -10,4 +10,5 @@ import com.chenxixiang.bootwithflame.mongodb.domain.Message;
 @RepositoryRestResource(collectionResourceRel = "message", path = "message")
 public interface MessageRepository extends MongoRepository<Message, String> {
 	public List<Message> findByUser1Id(String user1Id);
+
 }

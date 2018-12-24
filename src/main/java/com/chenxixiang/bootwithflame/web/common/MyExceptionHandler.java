@@ -12,15 +12,15 @@ public class MyExceptionHandler {
 
 	@ExceptionHandler(value = Exception.class)
 	@ResponseBody
-	public WebResult exceptionGet(Exception e) {
+	public <T> WebResult<T> exceptionGet(Exception e) {
 
 		if (e instanceof MyException) {
 			MyException MyException = (MyException) e;
-			return ResultUtil.error(MyException.getCode(), MyException.getMessage());
+			return WebResultUtil.error(MyException.getCode(), MyException.getMessage());
 		}
 
 		LOGGER.error("【系统异常】{}", e);
-		return ResultUtil.error(ExceptionEnum.UNKNOW_Exception);
+		return WebResultUtil.error(ExceptionEnum.UNKNOW_Exception);
 
 	}
 }

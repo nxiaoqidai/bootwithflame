@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chenxixiang.bootwithflame.service.interfaces.WelcomeService;
+import com.chenxixiang.bootwithflame.web.common.WebResult;
+import com.chenxixiang.bootwithflame.web.common.WebResultUtil;
 
 @RestController
 public class WelcomeController {
@@ -13,9 +15,9 @@ public class WelcomeController {
 	WelcomeService welcomeService;
 
 	@RequestMapping(method = RequestMethod.GET, value = "helloworld")
-	public String helloWorld() {
+	public WebResult<String> helloWorld() {
 
-		return welcomeService.foo() + "   hello world";
+		return WebResultUtil.success("Hello World");
 	}
 
 }

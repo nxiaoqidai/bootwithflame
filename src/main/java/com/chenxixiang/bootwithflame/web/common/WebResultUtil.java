@@ -1,6 +1,6 @@
 package com.chenxixiang.bootwithflame.web.common;
 
-public class ResultUtil {
+public class WebResultUtil {
 
 	/**
 	 * 返回成功，传入返回体具体出參
@@ -8,8 +8,8 @@ public class ResultUtil {
 	 * @param object
 	 * @return
 	 */
-	public static <T> WebResult success(T object) {
-		WebResult result = new WebResult();
+	public static <T> WebResult<T> success(T object) {
+		WebResult<T> result = new WebResult<T>();
 		result.setStatus(0);
 		result.setMsg("success");
 		result.setData(object);
@@ -21,7 +21,7 @@ public class ResultUtil {
 	 * 
 	 * @return
 	 */
-	public static WebResult success() {
+	public static <T> WebResult<T> success() {
 		return success(null);
 	}
 
@@ -32,8 +32,8 @@ public class ResultUtil {
 	 * @param msg
 	 * @return
 	 */
-	public static WebResult error(Integer code, String msg) {
-		WebResult result = new WebResult();
+	public static <T> WebResult<T> error(Integer code, String msg) {
+		WebResult<T> result = new WebResult<T>();
 		result.setStatus(code);
 		result.setMsg(msg);
 		result.setData(null);
@@ -46,8 +46,8 @@ public class ResultUtil {
 	 * @param exceptionEnum
 	 * @return
 	 */
-	public static WebResult error(ExceptionEnum exceptionEnum) {
-		WebResult result = new WebResult();
+	public static <T> WebResult<T> error(ExceptionEnum exceptionEnum) {
+		WebResult<T> result = new WebResult<T>();
 		result.setStatus(exceptionEnum.getCode());
 		result.setMsg(exceptionEnum.getMsg());
 		result.setData(null);

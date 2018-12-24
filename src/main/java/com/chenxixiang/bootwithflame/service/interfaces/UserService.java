@@ -7,7 +7,7 @@ import com.chenxixiang.bootwithflame.dao.pojo.User;
 public interface UserService {
 	int showUsers();
 
-	String showAll();
+	List<User> showAll();
 
 	List<User> selectUser(User user);
 

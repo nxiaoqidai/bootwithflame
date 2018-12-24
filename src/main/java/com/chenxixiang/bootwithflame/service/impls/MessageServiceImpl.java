@@ -2,16 +2,19 @@ package com.chenxixiang.bootwithflame.service.impls;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.chenxixiang.bootwithflame.mongodb.domain.Message;
 import com.chenxixiang.bootwithflame.mongodb.domain.MessageContent;
 import com.chenxixiang.bootwithflame.mongodb.repository.MessageRepository;
 import com.chenxixiang.bootwithflame.service.interfaces.MessageService;
+import com.chenxixiang.bootwithflame.web.common.MyException;
 
 @Service
 public class MessageServiceImpl implements MessageService {
@@ -35,8 +38,24 @@ public class MessageServiceImpl implements MessageService {
 
 	@Override
 	public List<Message> find(Message message) {
+		List<Message> messageList = messageRepository.findByUser1Id(message.getUser1Id());
+		if (CollectionUtils.isEmpty(messageList)) {
+			throw (new MyException(20, "null messages"));
+		}
+		return messageList;
+	}
 
-		return messageRepository.findByUser1Id(message.getUser1Id());
+	@Override
+	public List<Message> getSessionInfo(String userId, long startTime, long endTime) {
+		Date timeLeft = new Date(startTime);
+		Date timeRight;
+		if (endTime != 0) {
+			timeRight = new Date(endTime);
+		} else {
+			timeRight = new Date();
+		}
+
+		return null;
 	}
 
 	private Message fillTrashContent(Message message) {
