@@ -2,17 +2,20 @@ package com.chenxixiang.bootwithflame.service.impls;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import com.chenxixiang.bootwithflame.common.utils.PropertiesConverter;
 import com.chenxixiang.bootwithflame.mongodb.domain.Message;
 import com.chenxixiang.bootwithflame.mongodb.domain.MessageContent;
 import com.chenxixiang.bootwithflame.mongodb.repository.MessageRepository;
+import com.chenxixiang.bootwithflame.otherdto.MessageSessionsInfo;
 import com.chenxixiang.bootwithflame.service.interfaces.MessageService;
 import com.chenxixiang.bootwithflame.web.common.MyException;
 
@@ -46,16 +49,25 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	public List<Message> getSessionInfo(String userId, long startTime, long endTime) {
-		Date timeLeft = new Date(startTime);
-		Date timeRight;
-		if (endTime != 0) {
-			timeRight = new Date(endTime);
-		} else {
-			timeRight = new Date();
+	public List<MessageSessionsInfo> getSessionInfo(String userId, Long timeFrom, Long timeTo) {
+		// Date timeLeft = (new Date(timeFrom));
+		// Date timeRight;
+		// if (timeTo != 0) {
+		// timeRight = new Date(timeTo);
+		// } else {
+		// timeRight = new Date();
+		// }
+		PageRequest pageRequest = PageRequest.of(0, 20);
+		Page<Message> result = messageRepository.findMessageSessionByUserId(userId, userId, null,
+				null, pageRequest);
+		List<MessageSessionsInfo> messageSessionsInfos = new ArrayList<>();
+		for (Message message : result.getContent()) {
+			MessageSessionsInfo info = PropertiesConverter.convertObj(message,
+					MessageSessionsInfo.class);
+			messageSessionsInfos.add(info);
 		}
 
-		return null;
+		return messageSessionsInfos;
 	}
 
 	private Message fillTrashContent(Message message) {

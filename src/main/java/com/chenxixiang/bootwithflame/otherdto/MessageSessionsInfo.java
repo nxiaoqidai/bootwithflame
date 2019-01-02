@@ -5,9 +5,9 @@ import java.util.Date;
 public class MessageSessionsInfo {
 	private String sessionId;
 
-	private Date startTime;
+	private Date beginTime;
 
-	private Date closeTime;
+	private Date endTime;
 
 	public String getSessionId() {
 		return sessionId;
@@ -17,20 +17,20 @@ public class MessageSessionsInfo {
 		this.sessionId = sessionId;
 	}
 
-	public Date getStartTime() {
-		return startTime;
+	public Date getBeginTime() {
+		return beginTime;
 	}
 
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
+	public void setBeginTime(Date beginTime) {
+		this.beginTime = beginTime;
 	}
 
-	public Date getCloseTime() {
-		return closeTime;
+	public Date getEndTime() {
+		return endTime;
 	}
 
-	public void setCloseTime(Date closeTime) {
-		this.closeTime = closeTime;
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
 	}
 
 }

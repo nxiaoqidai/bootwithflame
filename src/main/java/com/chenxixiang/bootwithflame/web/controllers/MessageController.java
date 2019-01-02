@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chenxixiang.bootwithflame.mongodb.domain.Message;
+import com.chenxixiang.bootwithflame.otherdto.MessageSessionsInfo;
 import com.chenxixiang.bootwithflame.service.interfaces.MessageService;
 import com.chenxixiang.bootwithflame.web.common.ExceptionEnum;
 import com.chenxixiang.bootwithflame.web.common.MyException;
@@ -48,14 +49,17 @@ public class MessageController {
 
 	@ApiOperation(value = "查看用户session", notes = "查看用户历史会话id")
 	@RequestMapping(method = RequestMethod.GET, value = "/user1Sessions")
-	public @ResponseBody WebResult<List<Message>> getUser1Sessions(
+	public @ResponseBody WebResult<List<MessageSessionsInfo>> getUser1Sessions(
 			@RequestParam(value = "用户id") String User1Id,
-			@RequestParam(value = "会话结束时间范围(起)", required = false) long startTime,
-			@RequestParam(value = "会话结束时间范围(止)", required = false) long closeTime) {
+			@RequestParam(value = "会话结束时间范围(起)", required = false) Long startTime,
+			@RequestParam(value = "会话结束时间范围(止)", required = false) Long closeTime) {
 		if (StringUtils.isEmpty(User1Id)) {
 			throw new MyException(ExceptionEnum.PARAM_NULL);
 		}
-		return null;
+		List<MessageSessionsInfo> result = messageService.getSessionInfo(User1Id, startTime,
+				closeTime);
+
+		return WebResultUtil.success(result);
 	}
 
 }
