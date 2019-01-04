@@ -16,6 +16,8 @@ public interface MessageRepository extends MongoRepository<Message, String> {
 
 	public List<Message> findByUser1Id(String user1Id);
 
+	public List<Message> findBySessionId(String sessionId);
+
 	@Query(value = "{$or:[{'user1Id':?0},{'user1Id':?1}]}",
 			fields = "{'sessionId':1, 'beginTime':2, 'endTime':3}")
 	public Page<Message> findMessageSessionByUserId(String user1Id, String user2Id, Date timeFrom,

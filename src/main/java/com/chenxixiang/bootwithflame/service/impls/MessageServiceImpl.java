@@ -2,6 +2,7 @@ package com.chenxixiang.bootwithflame.service.impls;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import com.chenxixiang.bootwithflame.common.utils.PropertiesConverter;
 import com.chenxixiang.bootwithflame.mongodb.domain.Message;
@@ -29,7 +31,6 @@ public class MessageServiceImpl implements MessageService {
 	public int insert(Message message) {
 		try {
 			message.setSessionId(UUID.randomUUID().toString());
-			fillTrashContent(message);
 			messageRepository.save(message);
 			return 1;
 		} catch (Exception e) {
@@ -41,25 +42,36 @@ public class MessageServiceImpl implements MessageService {
 
 	@Override
 	public List<Message> find(Message message) {
-		List<Message> messageList = messageRepository.findByUser1Id(message.getUser1Id());
+		List<Message> messageList = null;
+		if (StringUtils.hasText(message.getSessionId())) {
+			messageList = messageRepository.findBySessionId(message.getSessionId());
+		} else {
+			messageList = messageRepository.findByUser1Id(message.getUser1Id());
+		}
+
 		if (CollectionUtils.isEmpty(messageList)) {
-			throw (new MyException(20, "null messages"));
+			throw (new MyException(100001, "null messages"));
 		}
 		return messageList;
 	}
 
 	@Override
 	public List<MessageSessionsInfo> getSessionInfo(String userId, Long timeFrom, Long timeTo) {
-		// Date timeLeft = (new Date(timeFrom));
-		// Date timeRight;
-		// if (timeTo != 0) {
-		// timeRight = new Date(timeTo);
-		// } else {
-		// timeRight = new Date();
-		// }
+		Date timeLeft = null;
+		Date timeRight = null;
+		if (timeFrom == null) {
+			timeLeft = new Date(0l);
+		} else {
+			timeLeft = new Date(timeFrom);
+		}
+		if (timeTo == null) {
+			timeRight = new Date();
+		} else {
+			timeRight = new Date(timeTo);
+		}
 		PageRequest pageRequest = PageRequest.of(0, 20);
-		Page<Message> result = messageRepository.findMessageSessionByUserId(userId, userId, null,
-				null, pageRequest);
+		Page<Message> result = messageRepository.findMessageSessionByUserId(userId, userId,
+				timeLeft, timeRight, pageRequest);
 		List<MessageSessionsInfo> messageSessionsInfos = new ArrayList<>();
 		for (Message message : result.getContent()) {
 			MessageSessionsInfo info = PropertiesConverter.convertObj(message,
