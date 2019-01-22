@@ -16,8 +16,8 @@ public class WelcomeController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "helloworld")
 	public WebResult<String> helloWorld() {
-
-		return WebResultUtil.success("Hello World");
+		String result = welcomeService.foo();
+		return WebResultUtil.success(result);
 	}
 
 }
