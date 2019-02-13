@@ -27,12 +27,12 @@ public class UserDao {
 	public int insert(User user) {
 		user.setId(UUID.randomUUID().toString());
 		user.setCreateTime(new Date());
+		user.setUpdateTime(new Date());
 		return mapper.insert(user);
 	}
 
 	public int delete(User user) {
-		if (user == null
-				|| (StringUtils.isEmpty(user.getId()) && StringUtils.isEmpty(user.getName()))) {
+		if (user == null || (StringUtils.isEmpty(user.getId()) && StringUtils.isEmpty(user.getName()))) {
 			return 0;
 		}
 		return mapper.delete(user);

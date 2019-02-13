@@ -19,6 +19,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.alibaba.fastjson.JSONObject;
 import com.chenxixiang.bootwithflame.dao.pojo.User;
+import com.chenxixiang.bootwithflame.redis.InventoryRedisCache;
 import com.chenxixiang.bootwithflame.service.interfaces.UserService;
 
 @RunWith(SpringRunner.class)
@@ -27,7 +28,8 @@ public class BootWithFlameApplicationTests {
 
 	@Autowired
 	UserService userService;
-
+	@Autowired
+	InventoryRedisCache ircache;
 	@Autowired
 	WebApplicationContext webappContext;
 
@@ -48,13 +50,18 @@ public class BootWithFlameApplicationTests {
 		userquery.setName("Beita");
 		String content = JSONObject.toJSONString(userquery);
 		// List<User> results = userService.selectUser(userquery);
-		RequestBuilder request = MockMvcRequestBuilders.get("/user/select")
-				.header("StreamNo", "stream001").contentType(MediaType.APPLICATION_JSON_UTF8)
-				.content(content).accept(MediaType.APPLICATION_JSON_UTF8);
+		RequestBuilder request = MockMvcRequestBuilders.get("/user/select").header("StreamNo", "stream001")
+				.contentType(MediaType.APPLICATION_JSON_UTF8).content(content).accept(MediaType.APPLICATION_JSON_UTF8);
 		ResultActions resultActions = mockmvc.perform(request);
 		MvcResult result = resultActions.andExpect(MockMvcResultMatchers.status().isOk())
 				.andDo(MockMvcResultHandlers.print()).andReturn();
 		String response = result.getResponse().getContentAsString();
 		System.out.println(response);
+	}
+
+	@Test
+	public void InvenTest() {
+		ircache.putIfAbsent("Pantyhose", 2);
+		System.out.println(ircache.get("Pantyhose"));
 	}
 }

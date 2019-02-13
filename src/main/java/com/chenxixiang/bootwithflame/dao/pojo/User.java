@@ -13,6 +13,11 @@ public class User {
 	@ApiModelProperty(hidden = true)
 	private Date createTime;
 
+	@ApiModelProperty(hidden = true)
+	private Date updateTime;
+
+	private float account;
+
 	public String getId() {
 		return id;
 	}
@@ -35,6 +40,22 @@ public class User {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+
+	public float getAccount() {
+		return account;
+	}
+
+	public void setAccount(float account) {
+		this.account = account;
 	}
 
 }
