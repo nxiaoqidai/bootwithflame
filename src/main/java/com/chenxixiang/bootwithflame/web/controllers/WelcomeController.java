@@ -9,7 +9,10 @@ import com.chenxixiang.bootwithflame.service.interfaces.WelcomeService;
 import com.chenxixiang.bootwithflame.web.common.WebResult;
 import com.chenxixiang.bootwithflame.web.common.WebResultUtil;
 
+import io.swagger.annotations.Api;
+
 @RestController
+@Api(value = "各种功能测试入口")
 public class WelcomeController {
 	@Autowired
 	WelcomeService welcomeService;

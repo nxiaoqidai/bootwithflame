@@ -2,7 +2,7 @@ package com.chenxixiang.bootwithflame.web.common;
 
 public enum ExceptionEnum {
 
-	UNKNOW_Exception(-1, "未知错误"), USER_NOT_FIND(-101, "用户不存在"), PARAM_NULL(10, "参数不足");
+	UNKNOW_EXCEPTION(-1, "未知错误"), USER_NOT_FIND(-101, "用户不存在"), PARAM_NULL(10, "参数不足");
 
 	private Integer code;
 

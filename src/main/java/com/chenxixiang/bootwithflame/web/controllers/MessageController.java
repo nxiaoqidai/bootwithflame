@@ -34,7 +34,7 @@ public class MessageController {
 		if (messageService.insert(message) == 1) {
 			return WebResultUtil.success();
 		} else {
-			return WebResultUtil.error(ExceptionEnum.UNKNOW_Exception);
+			return WebResultUtil.error(ExceptionEnum.UNKNOW_EXCEPTION);
 		}
 
 	}
