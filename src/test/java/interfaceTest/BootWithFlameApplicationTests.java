@@ -1,4 +1,4 @@
-package com.chenxixiang.bootwithflame;
+package interfaceTest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chenxixiang.bootwithflame.BootWithFlameApplication;
 import com.chenxixiang.bootwithflame.dao.pojo.User;
 import com.chenxixiang.bootwithflame.redis.InventoryRedisCache;
 import com.chenxixiang.bootwithflame.service.interfaces.UserService;
