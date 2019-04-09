@@ -17,10 +17,15 @@ public class WelcomeController {
 	@Autowired
 	WelcomeService welcomeService;
 
-	@RequestMapping(method = RequestMethod.GET, value = "helloworld")
-	public WebResult<String> helloWorld() {
+	@RequestMapping(method = RequestMethod.GET, value = "testPutInRedis")
+	public WebResult<String> testRedis() {
 		String result = welcomeService.foo();
 		return WebResultUtil.success(result);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "helloworld")
+	public WebResult<String> helloWorld() {
+		return WebResultUtil.success("Successs");
 	}
 
 }

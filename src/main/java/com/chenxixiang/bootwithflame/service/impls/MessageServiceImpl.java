@@ -31,6 +31,7 @@ public class MessageServiceImpl implements MessageService {
 	public int insert(Message message) {
 		try {
 			message.setSessionId(UUID.randomUUID().toString());
+			fillTrashContent(message);
 			messageRepository.save(message);
 			return 1;
 		} catch (Exception e) {
@@ -70,12 +71,11 @@ public class MessageServiceImpl implements MessageService {
 			timeRight = new Date(timeTo);
 		}
 		PageRequest pageRequest = PageRequest.of(0, 20);
-		Page<Message> result = messageRepository.findMessageSessionByUserId(userId, userId,
-				timeLeft, timeRight, pageRequest);
+		Page<Message> result = messageRepository.findMessageSessionByUserId(userId, userId, timeLeft, timeRight,
+				pageRequest);
 		List<MessageSessionsInfo> messageSessionsInfos = new ArrayList<>();
 		for (Message message : result.getContent()) {
-			MessageSessionsInfo info = PropertiesConverter.convertObj(message,
-					MessageSessionsInfo.class);
+			MessageSessionsInfo info = PropertiesConverter.convertObj(message, MessageSessionsInfo.class);
 			messageSessionsInfos.add(info);
 		}
 
@@ -90,11 +90,10 @@ public class MessageServiceImpl implements MessageService {
 		MessageContent mc0 = new MessageContent(message.getUser1Id(), "Hi, " + message.getUser2Id(),
 				calendar.getTime());
 		calendar.add(Calendar.SECOND, 3);
-		MessageContent mc1 = new MessageContent(message.getUser2Id(),
-				"丢你咩, " + message.getUser1Id(), calendar.getTime());
-		calendar.add(Calendar.SECOND, 3);
-		MessageContent mc2 = new MessageContent(message.getUser2Id(), "傻逼, 债见 ",
+		MessageContent mc1 = new MessageContent(message.getUser2Id(), "丢你咩, " + message.getUser1Id(),
 				calendar.getTime());
+		calendar.add(Calendar.SECOND, 3);
+		MessageContent mc2 = new MessageContent(message.getUser2Id(), "傻逼, 债见 ", calendar.getTime());
 		content.add(mc0);
 		content.add(mc1);
 		content.add(mc2);
