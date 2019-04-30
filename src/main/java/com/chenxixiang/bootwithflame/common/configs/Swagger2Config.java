@@ -1,4 +1,4 @@
-package com.chenxixiang.bootwithflame.web;
+package com.chenxixiang.bootwithflame.common.configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
