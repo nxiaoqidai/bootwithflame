@@ -63,6 +63,12 @@
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
      	</dependency>
      	
+     	<!-- elasticsearch -->
+     	<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+        </dependency>
+
 		<!-- mysql-connector -->
 		<dependency>
 			<groupId>mysql</groupId>
