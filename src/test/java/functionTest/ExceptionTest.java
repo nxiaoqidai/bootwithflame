@@ -1,14 +1,13 @@
 package functionTest;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 public class ExceptionTest {
 
 	public static void main(String[] args) {
-
-		try {
-			throwExceptionMethod(0);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		D d = new D();
+		Double ddd = NumberUtils.toDouble(d.getD() + "") + NumberUtils.toDouble(d.getD() + "");
+		System.out.println(ddd);
 
 	}
 
@@ -20,6 +19,14 @@ public class ExceptionTest {
 		}
 	}
 
+}
+
+class D {
+	Double double1;
+
+	public Double getD() {
+		return double1;
+	}
 }
 
 class BaseException extends RuntimeException {

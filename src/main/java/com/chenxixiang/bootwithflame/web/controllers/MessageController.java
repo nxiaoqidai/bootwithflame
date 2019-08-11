@@ -1,8 +1,11 @@
 package com.chenxixiang.bootwithflame.web.controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.HtmlUtils;
 
 import com.chenxixiang.bootwithflame.mongodb.domain.Message;
+import com.chenxixiang.bootwithflame.mongodb.domain.MessageContent;
 import com.chenxixiang.bootwithflame.otherdto.MessageSessionsInfo;
 import com.chenxixiang.bootwithflame.service.interfaces.MessageService;
 import com.chenxixiang.bootwithflame.web.common.ExceptionEnum;
@@ -66,10 +71,19 @@ public class MessageController {
 		if (StringUtils.isEmpty(User1Id)) {
 			throw new MyException(ExceptionEnum.PARAM_NULL);
 		}
-		List<MessageSessionsInfo> result = messageService.getSessionInfo(User1Id, startTime,
-				closeTime);
+		List<MessageSessionsInfo> result = messageService.getSessionInfo(User1Id, startTime, closeTime);
 
 		return WebResultUtil.success(result);
 	}
 
+	@MessageMapping("/hello")
+	@SendTo("/topic/greetings")
+	public MessageContent Speek(MessageContent clientMessage) throws Exception {
+		Thread.sleep(1000);
+		Date now = new Date();
+		MessageContent response = new MessageContent("System",
+				HtmlUtils.htmlEscape("System: " + clientMessage.getContent() + " " + now, "UTF-8"), now);
+		return response;
+
+	}
 }
