@@ -21,7 +21,7 @@ public class ProductTypeRepositoryImpl {
 		return map;
 	}
 
-	public void getProductypeByName() {
+	public void getOne() {
 		StringQuery query = new StringQuery(null);
 		Page<ProductType> page = elasticsearchTemplate.queryForPage(query, ProductType.class);
 

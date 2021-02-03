@@ -10,10 +10,11 @@ public class ThreadPoolTest {
 	private static ExecutorService pool = Executors.newFixedThreadPool(4);
 
 	public static void main(String[] abc) {
-		System.out.println("ri");
-		ProductBuffer buffer = new ProductBuffer(new ArrayDeque<String>(8), 8);
-		new Thread(new Producer(buffer)).start();
-		new Thread(new Consumer(buffer)).start();
+//		System.out.println("ri");
+//		ProductBuffer buffer = new ProductBuffer(new ArrayDeque<String>(8), 8);
+//		new Thread(new Producer(buffer)).start();
+//		new Thread(new Consumer(buffer)).start();
+
 	}
 
 }
